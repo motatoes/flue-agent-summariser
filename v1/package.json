@@ -1,0 +1,26 @@
+{
+  "name": "flue-agent-summariser-v1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dry-run": "flue run hn-summary --target node --env .env --input",
+    "dry-run:raw": "node --env-file=.env src/local.js",
+    "check": "node --check src/local.js && node --check src/hn.js",
+    "flue:build": "flue build --target cloudflare",
+    "flue:dev": "flue dev --target cloudflare"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@flue/runtime": "latest",
+    "agents": "^0.14.2",
+    "hono": "latest",
+    "valibot": "latest"
+  },
+  "devDependencies": {
+    "@flue/cli": "latest",
+    "wrangler": "latest"
+  }
+}
