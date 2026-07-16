@@ -262,7 +262,11 @@ export default defineAgent((ctx) => {
         `Extract only the topic and lookback window for the tool call. If the topic is missing, use "${DEFAULT_TOPIC}". If the window is missing, use ${DEFAULT_LOOKBACK_HOURS} hours.`,
         "Convert intervals before calling the tool: 1 day = 24 hours, 1 week = 168 hours, 1 month = 720 hours.",
         "Summarize only the stories returned by search_hacker_news. If results are sparse, weakly related, or empty, say that directly.",
-        "Reply with a concise summary, the time window, and up to three top links using the returned story URLs or HN discussion URLs."
+        "Format the final answer for Slack mrkdwn, not GitHub Markdown.",
+        "Use *single asterisks* for bold. Never use **double asterisks** or Markdown headings like ##.",
+        "Use compact bullet lines with •. Avoid numbered lists unless the ranking matters.",
+        "Format links as <url|title>. Prefer each story's URL when present, otherwise use its HN discussion URL.",
+        "Keep the answer scannable: title line, one short summary paragraph, then up to three linked story bullets with points/comments."
       ].join("\n")
     }),
     model: DEFAULT_MODEL,
