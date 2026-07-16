@@ -41,7 +41,7 @@ function startSlackEventsServer(currentConfig) {
     }
 
     const rawBody = await readRequestBody(request);
-    const isVerified = verifySlackSignature({
+    const isVerified = await verifySlackSignature({
       signingSecret: currentConfig.slackSigningSecret,
       rawBody,
       timestamp: request.headers["x-slack-request-timestamp"],

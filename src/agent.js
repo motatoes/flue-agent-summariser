@@ -1,5 +1,3 @@
-import crypto from "node:crypto";
-
 const HN_SEARCH_URL = "https://hn.algolia.com/api/v1/search_by_date";
 const OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses";
 const SLACK_POST_MESSAGE_URL = "https://slack.com/api/chat.postMessage";
@@ -417,7 +415,7 @@ function unitToHours(value, unit) {
   return value;
 }
 
-export function verifySlackSignature({ signingSecret, rawBody, timestamp, signature, nowSeconds = Date.now() / 1000 }) {
+export async function verifySlackSignature({ signingSecret, rawBody, timestamp, signature, nowSeconds = Date.now() / 1000 }) {
   if (!signingSecret || !timestamp || !signature) {
     return false;
   }
@@ -427,11 +425,35 @@ export function verifySlackSignature({ signingSecret, rawBody, timestamp, signat
   }
 
   const base = `v0:${timestamp}:${rawBody}`;
-  const expected = `v0=${crypto.createHmac("sha256", signingSecret).update(base).digest("hex")}`;
+  const key = await globalThis.crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(signingSecret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const digest = await globalThis.crypto.subtle.sign("HMAC", key, new TextEncoder().encode(base));
+  const expected = `v0=${arrayBufferToHex(digest)}`;
+
   if (expected.length !== signature.length) {
     return false;
   }
-  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  return timingSafeEqual(expected, signature);
+}
+
+function arrayBufferToHex(buffer) {
+  return [...new Uint8Array(buffer)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function timingSafeEqual(left, right) {
+  let mismatch = left.length ^ right.length;
+  const maxLength = Math.max(left.length, right.length);
+
+  for (let index = 0; index < maxLength; index += 1) {
+    mismatch |= (left.charCodeAt(index) || 0) ^ (right.charCodeAt(index) || 0);
+  }
+
+  return mismatch === 0;
 }
 
 export function formatLookback(hours) {

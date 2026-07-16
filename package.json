@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node --env-file=.env src/index.js",
     "dry-run": "node --env-file=.env src/index.js --dry-run",
-    "check": "node --check src/index.js && node --check src/agent.js"
+    "dev:worker": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "node --check src/index.js && node --check src/agent.js && node --check src/worker.js"
   },
   "engines": {
     "node": ">=20"

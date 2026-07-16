@@ -24,7 +24,7 @@ Create a Slack app and configure:
 
 - OAuth scopes: `app_mentions:read`, `chat:write`.
 - Event subscriptions: subscribe to `app_mention`.
-- Request URL: `https://<your-public-url>/slack/events`.
+- Request URL: `https://flue-agent-summariser.ujn.workers.dev/slack/events`.
 
 For local development, expose the server with a tunnel such as ngrok or Cloudflare Tunnel, then use the tunnel URL as the Slack Request URL.
 
@@ -60,4 +60,28 @@ Health check:
 
 ```bash
 curl http://localhost:3000/health
+```
+
+## Deploy
+
+This project deploys as a plain Cloudflare Worker.
+
+Set production secrets:
+
+```bash
+wrangler secret put SLACK_SIGNING_SECRET
+wrangler secret put SLACK_BOT_TOKEN
+wrangler secret put OPENAI_API_KEY
+```
+
+Deploy:
+
+```bash
+npm run deploy
+```
+
+Production health check:
+
+```bash
+curl https://flue-agent-summariser.ujn.workers.dev/health
 ```

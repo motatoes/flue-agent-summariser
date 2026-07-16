@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "flue-agent-summariser",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-07-16",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "vars": {
+    "DEFAULT_TOPIC": "san francisco",
+    "DEFAULT_LOOKBACK_HOURS": "24",
+    "MAX_STORIES": "12",
+    "OPENAI_MODEL": "gpt-4.1-mini",
+    "OPENAI_PARSE_REQUESTS": "true"
+  }
+}
