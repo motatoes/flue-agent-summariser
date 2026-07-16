@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@flue/runtime": "latest",
+    "@flue/slack": "^1.0.0-beta.1",
+    "@slack/web-api": "^8.0.0",
     "agents": "^0.14.2",
     "hono": "latest",
     "valibot": "latest"

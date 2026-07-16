@@ -16,6 +16,7 @@ npm install
 ```
 
 Set `OPENAI_API_KEY` in `.env`.
+For Slack, also set `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN`.
 
 ## Local Dry Run
 
@@ -50,4 +51,20 @@ Invoke the deployed workflow:
 curl 'https://flue-agent-summariser-v1.ujn.workers.dev/workflows/hn-summary?wait=result' \
   -H 'Content-Type: application/json' \
   -d '{"text":"summarise topics about cars for the past 10 days"}'
+```
+
+## Slack
+
+This version uses Flue's official Slack channel package. Configure your Slack
+app Event Subscriptions Request URL to:
+
+```text
+https://flue-agent-summariser-v1.ujn.workers.dev/channels/slack/events
+```
+
+Required Slack bot scopes:
+
+```text
+app_mentions:read
+chat:write
 ```
