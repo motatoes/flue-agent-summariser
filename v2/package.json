@@ -1,0 +1,25 @@
+{
+  "name": "flue-agent-summariser-v2-oc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/agents/hn-summariser.ts",
+    "flue:build": "flue build --target cloudflare",
+    "oc:check": "oc agent build --dir . --check-only --json",
+    "oc:deploy": "oc agent deploy"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "dependencies": {
+    "@flue/runtime": "latest",
+    "@opencomputer/flue": "latest",
+    "agents": "^0.14.2",
+    "valibot": "latest"
+  },
+  "devDependencies": {
+    "@flue/cli": "latest",
+    "wrangler": "latest"
+  }
+}

@@ -1,0 +1,10 @@
+name = "hn-summariser"
+model = "anthropic/claude-haiku-4-5"
+
+[runtime]
+family = "flue"
+
+[vars]
+DEFAULT_TOPIC = "san francisco"
+DEFAULT_LOOKBACK_HOURS = "24"
+MAX_STORIES = "12"
