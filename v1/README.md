@@ -32,4 +32,22 @@ The workflow uses `harness.session().prompt(...)` for both request extraction an
 npm run flue:build
 ```
 
-Cloudflare deployment comes after the local Flue workflow is verified.
+Deploy the generated Flue Cloudflare artifact:
+
+```bash
+npm run deploy
+```
+
+Production URL:
+
+```text
+https://flue-agent-summariser-v1.ujn.workers.dev
+```
+
+Invoke the deployed workflow:
+
+```bash
+curl 'https://flue-agent-summariser-v1.ujn.workers.dev/workflows/hn-summary?wait=result' \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"summarise topics about cars for the past 10 days"}'
+```

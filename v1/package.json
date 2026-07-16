@@ -8,7 +8,8 @@
     "dry-run:raw": "node --env-file=.env src/local.js",
     "check": "node --check src/local.js && node --check src/hn.js",
     "flue:build": "flue build --target cloudflare",
-    "flue:dev": "flue dev --target cloudflare"
+    "flue:dev": "flue dev --target cloudflare",
+    "deploy": "wrangler deploy --config dist/flue_agent_summariser_v1/wrangler.json"
   },
   "engines": {
     "node": ">=20"

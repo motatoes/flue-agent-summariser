@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "flue-agent-summariser-v1",
+  "compatibility_date": "2026-07-16",
+  "compatibility_flags": ["nodejs_compat"],
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["FlueRegistry", "FlueHnSummaryWorkflow"]
+    }
+  ],
+  "vars": {
+    "DEFAULT_TOPIC": "san francisco",
+    "DEFAULT_LOOKBACK_HOURS": "24",
+    "MAX_STORIES": "12",
+    "FLUE_MODEL": "openai/gpt-4.1-mini"
+  }
+}
