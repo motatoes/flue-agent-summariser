@@ -1,0 +1,14 @@
+{
+  "name": "flue-hn-slack-summary-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env src/index.js",
+    "dry-run": "node --env-file=.env src/index.js --dry-run",
+    "check": "node --check src/index.js && node --check src/agent.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
