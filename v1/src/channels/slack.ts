@@ -3,7 +3,9 @@ import { createSlackChannel } from "@flue/slack";
 import { WebClient } from "@slack/web-api";
 import hnSummary from "../workflows/hn-summary.js";
 
-export const client = new WebClient(process.env.SLACK_BOT_TOKEN);
+export const client = new WebClient(process.env.SLACK_BOT_TOKEN, {
+  fetch: slackFetch
+});
 
 export const channel = createSlackChannel({
   signingSecret: process.env.SLACK_SIGNING_SECRET!,
@@ -152,4 +154,15 @@ function escapeSlackText(text: string) {
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function slackFetch(input: RequestInfo | URL, init?: RequestInit) {
+  const safeInit = init?.redirect === "error"
+    ? {
+        ...init,
+        redirect: "manual" as RequestRedirect
+      }
+    : init;
+
+  return fetch(input, safeInit);
 }
